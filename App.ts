@@ -44,7 +44,6 @@ export class DirectContactDetectionApp extends App implements IPreMessageSentMod
             let receiver = '';
             if(message.room.userIds!==undefined){
                 const user = await read.getUserReader().getById(message.room.userIds[0]);
-                #might have to replace 0 with message.room.userIds.length-1 depending on rocketchat release version
                 receiver = '@'+user.username;
             }
             else{
