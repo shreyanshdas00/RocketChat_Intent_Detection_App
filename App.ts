@@ -51,7 +51,7 @@ export class DirectContactApp extends App implements IPreMessageSentModify, IPos
             }
             const admin = await read.getRoomReader().getByName('admin');
             const messageBuilder = modify.getCreator().startMessage({
-                text: `Intent of direct contact detected =>\nSender: @'+message.sender.username+'\nMessage: "'+this.data+'"\nReceiver: '+receiver+'\n\n',
+                text: 'Intent of direct contact detected =>\nSender: @'+message.sender.username+'\nMessage: "'+this.data+'"\nReceiver: '+receiver+'\n\n',
             } as IMessage);
             if (!admin) {
                 return;
