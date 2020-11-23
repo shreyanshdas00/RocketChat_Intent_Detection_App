@@ -2,6 +2,7 @@
 
 Deploys a RocketChat server with a content filter that blocks messages with intent of direct contact and reports the details of the exchange to the "admin" channel.
 
+Usage:
 
 1.	Clone the code from the repository
 
@@ -15,8 +16,11 @@ o	cd RocketChat_Intent_Detection_App
 o	chmod u+x server_setup.sh
 
 o	./server_setup.sh
+
   Prompts for details of the app,
+  
   App name: direct-contact-detection
+  
   rest can be filled in as desired
 
 3.	Visit the url where the server is deployed (ROOT_URL) and setup your server and admin account:
