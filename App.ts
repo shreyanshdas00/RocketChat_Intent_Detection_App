@@ -43,7 +43,8 @@ export class DirectContactDetectionApp extends App implements IPreMessageSentMod
         if (message.text === 'This message has been blocked due to intent of direct contact and an alert has been sent to the admin.'){
             let receiver = '';
             if(message.room.userIds!==undefined){
-                const user = await read.getUserReader().getById(message.room.userIds[message.room.userIds.length-1]);
+                const user = await read.getUserReader().getById(message.room.userIds[0]);
+                #might have to replace 0 with message.room.userIds.length-1 depending on rocketchat release version
                 receiver = '@'+user.username;
             }
             else{
