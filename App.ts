@@ -4,7 +4,7 @@ import { IMessage, IPreMessageSentModify, IPostMessageSent } from '@rocket.chat/
 import { IAppInfo } from '@rocket.chat/apps-engine/definition/metadata';
 import { IRoom } from '@rocket.chat/apps-engine/definition/rooms';
 
-export class DirectContactApp extends App implements IPreMessageSentModify, IPostMessageSent {
+export class DirectContactDetectionApp extends App implements IPreMessageSentModify, IPostMessageSent {
     data = '';
     constructor(info: IAppInfo, logger: ILogger, accessors: IAppAccessors) {
         super(info, logger, accessors);
