@@ -11,23 +11,56 @@ export class DirectContactApp extends App implements IPreMessageSentModify, IPos
     }
 
     public async checkPreMessageSentModify (message: IMessage, read: IRead, http: IHttp): Promise<boolean> {
-             if (message.room.slugifiedName === 'admin'){
-             return false;
-             }
+        if (message.room.slugifiedName === 'admin'){
+            return false;
+        }
+        const response = await http.get('http://163.172.164.82:8000?input_utterance='+message.text);
+        if(response.data.predicted_intent==='intent_contact' && response.data.confidence>80){
+            read.getNotifier().notifyUser(message.sender, {
+                room: message.room,
+                sender: message.sender,
+                text: 'Intent of direct contact detected. Your message has been blocked and an alert has been sent to the admin.',
+                alias: 'Content Filter',
+                emoji: ':no_entry:',
+            });
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+        
+    public async executePreMessageSentModify(message: IMessage, builder: IMessageBuilder, read: IRead, http: IHttp, persistence: IPersistence): Promise<IMessage> {
+        this.data = builder.getText();
+        builder.setText('This message has been blocked due to intent of direct contact and an alert has been sent to the admin.');
+        return message;
+    }
+
     public async executePostMessageSent(message: IMessage, read: IRead, http: IHttp, persistence: IPersistence, modify: IModify): Promise<void> {
-        if (message.room.slugifiedName === 'general') {
+        if (message.room.slugifiedName === 'admin') {
             return;
         }
-
-        const general = await read.getRoomReader().getByName('general');
-        const messageBuilder = modify.getCreator().startMessage({
-            text: `@${message.sender.username} said "${message.text}" in #${message.room.displayName}`,
-        } as IMessage);
-
-        if (!general) {
+        if (message.text === 'This message has been blocked due to intent of direct contact and an alert has been sent to the admin.'){
+            let receiver = '';
+            if(message.room.userIds!==undefined){
+                const user = await read.getUserReader().getById(message.room.userIds[message.room.userIds.length-1]);
+                receiver = '@'+user.username;
+            }
+            else{
+                receiver = '#'+message.room.slugifiedName;
+            }
+            const admin = await read.getRoomReader().getByName('admin');
+            const messageBuilder = modify.getCreator().startMessage({
+                text: `Intent of direct contact detected =>\nSender: @'+message.sender.username+'\nMessage: "'+this.data+'"\nReceiver: '+receiver+'\n\n',
+            } as IMessage);
+            if (!admin) {
+                return;
+            }
+            messageBuilder.setRoom(admin);
+            await modify.getCreator().finish(messageBuilder);
+        }
+        else{
             return;
         }
-        messageBuilder.setRoom(general);
-        await modify.getCreator().finish(messageBuilder);
     }
 }
