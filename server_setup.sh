@@ -10,7 +10,7 @@ mv App.ts DirectContactDetectionApp.ts
 cd ..
 cd rocket.chat
 docker-compose up -d
-echo "Visit your RocketChat URL (http://localhost:3000) and setup the server, generate access token and fill in the following details:" 
+echo "Visit your RocketChat URL (http://localhost:3000), setup the server, generate access token and fill in the following details:" 
 read -p "Enter Admin Username: "  username
 read -p "Enter Admin Password: " password
 read -p "Enter X-User-Id: "  xuser
