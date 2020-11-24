@@ -10,6 +10,7 @@ mv App.ts DirectContactDetectionApp.ts
 cd ..
 cd rocket.chat
 docker-compose up -d
+sleep 3m
 read -p "Enter Admin Username: "  username
 read -p "Enter E-mail: " email
 read -p "Enter Name: " name
