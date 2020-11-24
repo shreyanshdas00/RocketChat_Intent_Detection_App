@@ -17,7 +17,7 @@ read -p "Enter Name: " name
 read -p "Enter Admin Password: " password
 curl -H "Content-type:application/json" \
      http://localhost:3000/api/v1/users.register \
-     -d '{ "username": $username, "email": $email, "pass": $password, "name": $name}'
+     -d '{ "username": \"$username\", "email": \"$email\", "pass": \"$password\", "name": \"$name\"}'
 echo "Visit your RocketChat URL (http://localhost:3000), generate access token and fill in the following details:" 
 read -p "Enter X-User-Id: "  xuser
 read -p "Enter X-Auth-Token: "  xtoken
