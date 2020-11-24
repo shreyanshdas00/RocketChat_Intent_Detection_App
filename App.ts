@@ -37,13 +37,21 @@ export class DirectContactDetectionApp extends App implements IPreMessageSentMod
     }
 
     public async executePostMessageSent(message: IMessage, read: IRead, http: IHttp, persistence: IPersistence, modify: IModify): Promise<void> {
-        if (message.room.slugifiedName === 'admin') {
-            return;
-        }
         if (message.text === 'This message has been blocked due to intent of direct contact and an alert has been sent to the admin.'){
             let receiver = '';
             if(message.room.userIds!==undefined){
-                const user = await read.getUserReader().getById(message.room.userIds[0]);
+                var i = message.room.userIds.length;
+                if (i===1){
+                    i=0;
+                }
+                else{
+                    for(i=i-1 ; i >= 0 ; --i){
+                        if(message.sender.id !== message.room.userIds[i]){
+                            break;
+                        }
+                    }
+                }
+                const user = await read.getUserReader().getById(message.room.userIds[i]);
                 receiver = '@'+user.username;
             }
             else{
