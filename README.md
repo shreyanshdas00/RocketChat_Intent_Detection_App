@@ -13,27 +13,18 @@ ROOT_URL= (url where server is to be deployed)
 
 o	cd RocketChat_Intent_Detection_App
 
-o	chmod u+x server_setup.sh
-
-o	./server_setup.sh
+o	sh server_setup.sh
 
   Prompts for details of the app,
   
   App name: direct-contact-detection
   
-  rest can be filled in as desired
+  rest of the details can be filled in as desired
 
-3.	Visit the url where the server is deployed (ROOT_URL) and setup your server and admin account:
+3.	When prompted, visit the url where the server is deployed (http://localhost:3000) and setup your server and admin account:
 
 o	Enable Apps development mode by navigating to Administration -> General then scroll down to Apps and click on the True radio button over the Enable development mode on your RocketChat server.
 
-o	Create a private text channel named “admin”
+o	Generate personal access token by navigating to Profile -> My Account -> Personal Access Tokens and save them. (The tokens that will be generated are irrecoverable, once generated, you must save it in a safe place, if the token is lost or forgotten, you can regenerate or delete the token.)
 
-4.	Deploying the app:
-
-o	Run the following command in the terminal-
-  meteor rc-apps deploy --url http://localhost:3000 --username <user_username> --password <user_password>
-
-  --url should be the url where server is deployed (ROOT_URL)
-
-  where, <user_username>=admin username and <user_password>=admin password
+o	Fill in details asked for by the script.
