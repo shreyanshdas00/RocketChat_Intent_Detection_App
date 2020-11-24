@@ -13,6 +13,9 @@ docker-compose up -d
 echo "Visit your RocketChat URL (http://localhost:3000), setup the server, generate access token and fill in the following details:" 
 read -p "Enter Admin Username: "  username
 read -p "Enter Admin Password: " password
+curl -H "Content-type:application/json" \
+     http://localhost:3000/api/v1/users.register \
+     -d '{ "username": "$username", "email": "shreyanshdas00@gmail.com", "pass": "$password", "name": "Shreyansh Das"}'
 read -p "Enter X-User-Id: "  xuser
 read -p "Enter X-Auth-Token: "  xtoken
 curl -H "X-Auth-Token: $xtoken" \
