@@ -28,6 +28,6 @@ o	sh server_setup.sh
 
 o	Enable Apps development mode by navigating to Administration -> General then scroll down to Apps and click on the True radio button over the Enable development mode on your RocketChat server.
 
-o	Generate personal access token by navigating to Profile -> My Account -> Personal Access Tokens and save them. (The tokens that will be generated are irrecoverable, once generated, you must save it in a safe place, if the token is lost or forgotten, you can regenerate or delete the token.)
+o	Create private channel "admin"
 
 o	Fill in details asked for by the script.
